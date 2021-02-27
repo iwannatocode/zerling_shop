@@ -1,6 +1,16 @@
 
 var device_width, device = "large";
 
+
+function sub_menu( e ) { 
+    $(".sub_men ol").toggleClass("appear");
+    var sign = $(this).find( "span").text() == '+' ?  '-' : '+';
+    $(this).find( "span").text( sign );
+    console.log( e );
+}
+
+$(".sub_men").click( sub_menu);
+
 // star-effect del pricipio
 $(document).ready(function () {
 
@@ -69,20 +79,59 @@ $(window).resize(function(){
 
 // creo menu desplegable para movil
 function small_device() {
-   var menu = `<div id="menu">menu</>`;
+   var menu = $( '<div id="menu">menu <span class="sign plus">+</span></div>' );
    $("nav").after(menu);
-   $("#menu").addClass("new_menu").append( $(".nav_bar_button") );
+   $("#menu").addClass("new_menu").after( $(".nav_bar_button") );
     $(".nav_bar_button, .nav_button").addClass("new_menu");
   //  $(".new_menu").removeClass("nav_button");
-  $("#menu").click(function(){
+  //arreglo eel hover de menu para pc
+  $(" ul li a").css( "color", "black" );
+  $(".nav_bar_button li").removeClass(  "nav_button"  );
+  $(".nav_bar_button li").removeClass(  "nav_button_underline"  );
 
+//pongo + a los sub menua
+    $( ".sub_men a:first" ).append("<span class='sign plus'>+</span></div>");
+
+ //funcion clik para plegar y deplegar
+  $("#menu").click(function(){
     $("ul, li").toggleClass("appear");
+    var sign = $(this).find( "span").text() == '+' ?  '-' : '+';
+    $(this).find( "span").text( sign );
+    
+  
+
+    $( ".sub_menu ol" ).toggleClass ("appear");
+    $(".sub_men ol").removeClass("appear");
+    $( ".sub_men a:first" ).find( "span").replaceWith("");
+    $( ".sub_men a:first" ).append("<span class='sign plus'>+</span></div>");
+   
+   // console.log( sign );
   });
+  
+
 
 }
 //arreglo cambios para pc
 function large_device(){
-    $("nav").append( $("#menu ul") );
+    //quito los '+'
+    $("span").replaceWith("");
+    $("ul, li").removeClass("appear").removeClass("new_menu");
+    $(".nav_bar_button li").addClass(  "nav_button"  );
+    $("nav").append( $(".nav_bar_button") );
     $("#menu").replaceWith("");
+    //arreglo el color de font del nav al resize
+    if( $(document).scrollTop() > 50  ){
+        $("#nav_bar").addClass( "nav_bar_scroll" );
+        $("#nav_bar a").css( "color", "white" );
+        $(".nav_button").addClass(  "nav_button_underline"  );
+        scroll_nav_bar = true;
+    }
+    else if ( $(document).scrollTop() < 50 ){
+        $("#nav_bar").removeClass( "nav_bar_scroll" );
+        $("#nav_bar a").css( "color", "black" );
+        $(".nav_button").removeClass(  "nav_button_underline"  );
+        scroll_nav_bar = false;
+    }  
+    
 }
 

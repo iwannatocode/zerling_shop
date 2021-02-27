@@ -444,11 +444,16 @@ footer p{
         margin: 0px;
         padding: 0px;
         cursor: default;
+        color: black;
     }
     .appear{
         display: block;
     }
     .icon{
         margin-right: 20px;
+    }
+    .plus{
+        font-size: 22px;
+        font-weight: 800;
     }
 }
